@@ -24,10 +24,10 @@ module.exports = React.createClass({
     },
     render: function () {
         return (
-            <div className = 'grocery-addItem'>
+            <div className='grocery-addItem'>
                 <form onSubmit={this.addItem}>
-                    <input value={this.state.input} onChange = {this.handleInputName}/>
-                    <button>Add Item< /button>
+                    <input value={this.state.input} onChange={this.handleInputName} />
+                    <button>Add Item</button>
                 </form>
             </div>
         );
