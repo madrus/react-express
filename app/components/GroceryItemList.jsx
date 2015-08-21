@@ -1,4 +1,6 @@
+//jshint -W117
 var React = require('react/addons');
+var GroceryItem = require('./GroceryItem.jsx');
 
 module.exports = React.createClass({
     render: function () { // render is a must in any React object
@@ -8,7 +10,7 @@ module.exports = React.createClass({
                 <div>
                     {this.props.items.map(function(item, index) {
                         return (
-                        <div>{item.name}</div>
+                            <GroceryItem item={item} key={"item"+index}/>
                         )
                     })
                     }
