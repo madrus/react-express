@@ -1,17 +1,10 @@
 //jshint -W117
 var dispatcher = require('./../dispatcher.js');
+var helper = require('./../helpers/RestHelper.js');
 
 function GroceryItemStore () {
-    var items = [{
-        name: 'Ice Cream'
-    }, {
-        name: 'Waffles'
-    }, {
-        name: 'Candy',
-        purchased: true
-    }, {
-        name: 'Snarks'
-    }];
+    var items = [];
+
     var listeners = [];
     
     function getItems () {
@@ -21,6 +14,8 @@ function GroceryItemStore () {
     function addGroceryItem(item) {
         items.push(item);
         triggerListeners();
+
+        helper.post('api/items', item);
     }
     
     function deleteGroceryItem(item) {
@@ -55,6 +50,12 @@ function GroceryItemStore () {
     
     //////////////////////////////////////////////
     
+    helper.get('api/items')
+        .then(function(data) {
+            items = data;
+            triggerListeners();
+    });
+
     dispatcher.register(function(event) {
         var split = event.type.split(':');
         if (split[0] === 'grocery-item') {
