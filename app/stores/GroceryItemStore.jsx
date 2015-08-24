@@ -23,6 +23,26 @@ function GroceryItemStore () {
         triggerListeners();
     }
     
+    function deleteGroceryItem(item) {
+        var index;
+        items.filter(function(_item, _index) {
+            if (_item.name == item.name) {
+                index = _index;
+            }
+        });
+
+        items.splice(index, 1);
+        triggerListeners();
+    }
+
+    function setGroceryItemBought(item, isBought) {
+        // return the first item, which name is the same that of the one being passed
+        var _item = items.filter(function(a) {return a.name == item.name})[0];
+
+        _item.purchased = isBought || false;
+        triggerListeners();
+    }
+
     function onChange(listener) {
         listeners.push(listener);
     }
@@ -33,7 +53,7 @@ function GroceryItemStore () {
         });
     }
     
-    //////////////////////////
+    //////////////////////////////////////////////
     
     dispatcher.register(function(event) {
         var split = event.type.split(':');
@@ -42,7 +62,16 @@ function GroceryItemStore () {
                 case 'add':
                     addGroceryItem(event.payload);
                     break;
-            }
+                case 'delete':
+                    deleteGroceryItem(event.payload);
+                    break;
+                case 'buy':
+                    setGroceryItemBought(event.payload, /*bought*/ true);
+                    break;
+                case 'unbuy':
+                    setGroceryItemBought(event.payload, /*unbought*/ false);
+                    break;
+                }
         }
     });
     
