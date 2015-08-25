@@ -22,7 +22,8 @@ gulp.task('bundle', ['copy-css'], function () {
 });
 
 gulp.task('copy-css', function () {
-    gulp.src(['app/*.css', 'bower_components/skeleton/css/*.css'])
+    //    gulp.src(['app/*.css', 'bower_components/skeleton/css/*.css'])
+    gulp.src(['app/*.css'])
         .pipe(gulp.dest('./.tmp'));
 });
 
