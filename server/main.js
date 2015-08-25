@@ -11,7 +11,9 @@ app.get('/', function (req, res) {
 
 app.use(express.static(__dirname + '/../.tmp'));
 app.use(parser.json());
-app.use(parser.urlencoded({extended:false}));
+app.use(parser.urlencoded({
+    extended: false
+}));
 
 app.listen(7777);
 

@@ -1,9 +1,6 @@
 //jshint -W117
 
 var React = require('react/addons');
-
-console.log('Hello from JSX!');
-
 var GroceryItemList = require('./components/GroceryItemList.jsx');
 var groceryItemStore = require('./stores/GroceryItemStore.jsx');
 var initial = groceryItemStore.getItems();
@@ -14,6 +11,8 @@ function render() {
 }
 
 //////////////////////////////
+
+console.log('Hello from JSX!');
 
 groceryItemStore.onChange(function(items) {
     initial = items;

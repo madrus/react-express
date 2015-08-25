@@ -8,34 +8,49 @@ module.exports = function (app) {
      * (also see main.js) */
     app.route('/api/items')
         .get(function (req, res) {
-            GroceryItem.find(function (error, doc) {
-                res.send(doc);
+            GroceryItem.find(function (error, itemsDoc) {
+                res.send(itemsDoc);
             });
         })
         .post(function (req, res) {
             var item = req.body;
+            console.log('adding item...', item);
+            // items.push(item);
             var groceryItem = new GroceryItem(item);
-            groceryItem.save(function (error, data) {
+            groceryItem.save(function (error) {
+                if (error) console.log(error);
+
                 res.status(300).send(); // OK = inserted
             });
         });
 
-    app.route('/api/items:/:id')
+    app.route('/api/items/:id')
         .delete(function (req, res) {
+            console.log('removing...', req.params.id);
             GroceryItem.findOne({
                 _id: req.params.id
-            }).remove();
+            }).remove(function (id) {
+                console.log('removed', id);
+            });
         })
         .patch(function (req, res) {
+            console.log('patching...', req.body)
+
             GroceryItem.findOne({
-                _id: req.body._id
-            }, function (error, doc) {
-                for (var key in req.body) {
-                    doc[key] = req.body[key];
-                }
-                doc.save();
-                res.status(200).send(); // OK = patched
-            });
+                    _id: req.body._id
+                },
+                function (error, doc) {
+                    if (error) console.log(error);
+
+                    for (var prop in req.body) {
+                        doc[prop] = req.body[prop];
+                    }
+
+                    console.log('doc', doc);
+
+                    doc.save();
+                    res.status(200).send(); // OK = patched
+                });
         });
 
 };

@@ -24,7 +24,7 @@ mongoose.connect('mongodb://localhost/grocery', function () {
         name: 'Snarks'
     }];
 
-    items.forEach(function(item) {
+    items.forEach(function (item) {
         new GroceryItem(item).save();
     });
 
