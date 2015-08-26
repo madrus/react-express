@@ -1,4 +1,4 @@
-//jshint -W117:W104
+/*jshint -W117:W104 */
 
 var express = require('express');
 var parser = require('body-parser');
@@ -10,7 +10,7 @@ require('./database.js'); // no need to assign this to a var
 require('babel/register'); // om jsx te vertalen naar js
 
 app.get('/', function (req, res) {
-//    res.render('./../app/index.ejs', {});
+    //res.render('./../app/index.ejs', {});
     var application = React.createFactory(require('./../app/components/GroceryItemList.jsx'));
 
     GroceryItem.find(function(error, doc) {
